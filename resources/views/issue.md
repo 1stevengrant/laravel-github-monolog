@@ -14,7 +14,7 @@
 ```shell
 {simplified_stack_trace}
 ```
-</details
+</details>
 
 <details>
 <summary>📋 View Complete Stack Trace</summary>
@@ -61,6 +61,24 @@
 
 </details>
 <!-- route:end -->
+
+<!-- livewire:start -->
+<details>
+<summary>⚡ Livewire Component</summary>
+
+{livewire}
+
+</details>
+<!-- livewire:end -->
+
+<!-- inertia:start -->
+<details>
+<summary>🚀 Inertia Request</summary>
+
+{inertia}
+
+</details>
+<!-- inertia:end -->
 
 <!-- user:start -->
 <details>
