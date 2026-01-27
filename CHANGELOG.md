@@ -2,6 +2,29 @@
 
 All notable changes to `laravel-github-monolog` will be documented in this file.
 
+## v3.6.1 - 2026-01-27
+
+### What's Changed
+
+#### Bug Fixes
+
+* **fix: prevent large context data from being serialized into job payloads** - Use `Context::addHidden()` for large tracing data (queries, outgoing_requests, session, request) to prevent serialization into Laravel job payloads.
+  
+  Hidden context is available during the request for error logging but is NOT serialized when jobs are queued, preventing ~6.8MB job payloads and Redis OOM errors.
+  
+  **Changes:**
+  
+  - `QueryCollector`: use hidden context for queries
+  - `OutgoingRequestSendingCollector`: use hidden context for request tracking
+  - `OutgoingRequestResponseCollector`: use hidden context for outgoing requests
+  - `SessionCollector`: use hidden context for session data
+  - `RequestDataCollector`: use hidden context for request data
+  - `ContextProcessor`: merge both regular and hidden context for logging
+  - `GithubMonologServiceProvider`: add dehydration callback as safety net
+  
+
+**Full Changelog**: https://github.com/Naoray/laravel-github-monolog/compare/v3.6.0...v3.6.1
+
 ## v3.6.0 - 2026-01-11
 
 ### What's Changed
