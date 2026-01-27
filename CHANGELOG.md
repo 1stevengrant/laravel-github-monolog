@@ -2,6 +2,44 @@
 
 All notable changes to `laravel-github-monolog` will be documented in this file.
 
+## v3.7.0 - 2026-01-27
+
+### What's Changed
+
+#### New Features
+
+* **feat(tracing): add Livewire and Inertia.js support** - Add request-based detection for Livewire v3+ and Inertia.js requests, capturing component data for enhanced debugging context.
+
+  **Key Design Decisions:**
+  - **Request-based detection** - No package dependencies required. Collectors detect Livewire/Inertia requests by examining headers and request payload.
+  - **Livewire v3+ only** - Targets Livewire v3+ request structure only.
+  - **Per-request accuracy** - Only captures data when the request is actually Livewire/Inertia.
+
+  **Livewire Data Captured:**
+  - Component name, id, path
+  - Methods called (e.g., `save`, `delete`)
+  - Updated properties (wire:model bindings)
+  - Originating page URL
+
+  **Inertia Data Captured:**
+  - Component name (Vue/React page)
+  - Inertia version
+  - Partial reload status
+  - Partial data keys requested/excluded
+  - Request URL
+
+  **Changes:**
+  - Add `LivewireDataCollector` with request-based detection
+  - Add `InertiaDataCollector` with request-based detection
+  - Add `ResolvesTracingConfig` trait for consistent config resolution
+  - Update `EventHandler` to support multiple collectors per event
+  - Add Livewire and Inertia sections to issue templates
+  - Add comprehensive default configuration file
+  - Enhance `RouteDataCollector` with Livewire route detection
+  - Enhance `UserDataCollector` with logout handling and caching
+
+**Full Changelog**: https://github.com/Naoray/laravel-github-monolog/compare/v3.6.1...v3.7.0
+
 ## v3.6.1 - 2026-01-27
 
 ### What's Changed
