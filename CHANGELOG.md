@@ -2,6 +2,27 @@
 
 All notable changes to `laravel-github-monolog` will be documented in this file.
 
+## v3.8.0 - 2026-02-08
+
+### What's Changed
+
+#### New Features
+
+* **feat(tracing): add breadcrumbs/event trail system** (#50) - Capture an ordered trail of log messages and cache events leading up to an error, similar to Sentry/Flare breadcrumbs. Configurable ring buffer (default 40 entries), formatted as markdown tables in GitHub issues.
+* **feat(tracing): auto-detect git information** (#48) - Automatically detect git hash, branch, tag, and dirty status using Laravel's `Process` facade. `config('app.git_commit')` still works as an override. New `tracing.git` config toggle.
+* **feat(deduplication): add occurrence counter** (#49) - Track how many times each error signature has been seen. Comments on duplicate issues now show `Occurrence: #N`. New `deduplication.track_occurrences` config option.
+* **feat(livewire): capture component state from snapshots** (#45) - Extract component `data` from Livewire snapshot payloads with truncation limits (50 keys, 8KB). Sensitive values are automatically redacted.
+* **feat(livewire): capture method parameters and update values** (#43) - Methods now include their `params`, and property updates preserve full key-value pairs instead of just keys.
+
+#### Bug Fixes
+
+* **fix(formatters): strip duplicate keys from Extra Data section** (#41) - `ExtraFormatter` now excludes keys that have dedicated sections (environment, request, user, etc.) to avoid duplicate output.
+* **fix(templates): un-nest stack trace details in comment template** (#47) - Fix `<details>` blocks in comment template to be siblings instead of nested, matching the issue template structure.
+* **fix(tracing): truncate serialized job payload data** (#44) - Long serialized strings in job payloads are now truncated to 500 characters using `Str::limit()`.
+* **fix(session): strip empty flash data and token** (#42) - Remove `_token` and empty `_flash` from session data. Flash data only appears when non-empty. Uses `Arr::except()` for cleaner filtering.
+
+**Full Changelog**: https://github.com/Naoray/laravel-github-monolog/compare/v3.7.0...v3.8.0
+
 ## v3.7.0 - 2026-01-27
 
 ### What's Changed
